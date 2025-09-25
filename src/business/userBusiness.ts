@@ -17,3 +17,19 @@ export const getUserById = (id: number): User | undefined => {
 export const getUsersInAgeRange = (min: number, max: number): User[] => {
   return findUsersByAgeRange(min, max);
 };
+
+//Atividade 4
+export const updateUser = (userId: number, updateData: Partial<User>): User | null => {
+  const existingUser = findUserById(userId);
+  if (!existingUser) {
+    return null;
+  }
+  if (updateData.email && updateData.email !== existingUser.email) {
+    const emailConflict = findUserByEmail(updateData.email);
+    if (emailConflict && emailConflict.id !== userId) {
+      throw new Error('Email already in use.');
+    }
+  }
+  const updatedUser = { ...existingUser, ...updateData };
+  return updateUserInDatabase(updatedUser as User);
+};

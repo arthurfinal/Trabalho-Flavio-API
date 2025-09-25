@@ -27,3 +27,24 @@ export const getUsersByAgeRangeController = (req: Request, res: Response) => {
   }
   res.json({ success: true, data: usersByAgeRange });
 };
+
+//Atividade 4
+export const updateUserController = (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id as string);
+  const { name, email, role, age } = req.body;
+  if (isNaN(userId) || !name || !email || !role || !age) {
+    return res.status(400).json({ success: false, message: 'Dados inválidos. Verifique o ID e todos os campos obrigatórios (name, email, role, age).' });
+  }
+  try {
+    const updatedUser = userBusiness.updateUser(userId, { name, email, role, age });
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+    }
+    res.json({ success: true, message: 'Usuário atualizado com sucesso.', data: updatedUser });
+  } catch (error) {
+    if (error instanceof Error && error.message === 'Email already in use.') {
+      return res.status(409).json({ success: false, message: error.message });
+    }
+    return res.status(500).json({ success: false, message: 'Erro interno do servidor.' });
+  }
+};
