@@ -7,7 +7,7 @@ import {
 } from '../controller/userController';
 
 const usersRouter = Router();
-
-
+//Atividade 1
+usersRouter.get('/:id', getUserByIdController);
 
 export default usersRouter; 
