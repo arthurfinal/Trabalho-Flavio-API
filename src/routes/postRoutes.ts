@@ -6,7 +6,6 @@ import {
 } from '../controller/postController';
 
 const postsRouter = Router();
-
-
-
+//Atividade 3
+postsRouter.post('/', createPostController);
 export default postsRouter;
