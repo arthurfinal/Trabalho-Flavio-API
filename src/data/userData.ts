@@ -24,3 +24,20 @@ export const findUserByEmail = (email: string): User | undefined => {
   return users.find(user => user.email === email);
 };
 
+//Atividade 7
+export const findUsersWithPosts = (): Set<number> => {
+  const usersWithPosts = new Set<number>();
+  posts.forEach(post => usersWithPosts.add(post.authorId));
+  return usersWithPosts;
+};
+
+export const removeInactiveUsers = (userIdsWithPosts: Set<number>): User[] => {
+  const removedUsers: User[] = [];
+  for (let i = users.length - 1; i >= 0; i--) {
+    const user = users[i];
+    if (user && user.role !== 'admin' && !userIdsWithPosts.has(user.id)) {
+      removedUsers.push(...users.splice(i, 1));
+    }
+  }
+  return removedUsers;
+};

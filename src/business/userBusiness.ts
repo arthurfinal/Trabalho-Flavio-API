@@ -34,3 +34,8 @@ export const updateUser = (userId: number, updateData: Partial<User>): User | nu
   return updateUserInDatabase(updatedUser as User);
 };
 
+//Atividade 7
+export const cleanupInactiveUsers = (): User[] => {
+  const usersWithPosts = findUsersWithPosts();
+  return removeInactiveUsers(usersWithPosts);
+};

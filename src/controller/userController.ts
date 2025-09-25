@@ -49,4 +49,15 @@ export const updateUserController = (req: Request, res: Response) => {
   }
 };
 
-
+//Atividade 7
+export const cleanupInactiveUsersController = (req: Request, res: Response) => {
+  const confirm = req.query.confirm === 'true';
+  if (!confirm) {
+    return res.status(400).json({ success: false, message: 'Confirmação obrigatória. Adicione ?confirm=true à sua URL.' });
+  }
+  const removedUsers = userBusiness.cleanupInactiveUsers();
+  if (removedUsers.length === 0) {
+    return res.status(404).json({ success: false, message: 'Nenhum usuário inativo encontrado para remoção.' });
+  }
+  res.json({ success: true, message: 'Usuários inativos removidos com sucesso.', data: removedUsers });
+};
