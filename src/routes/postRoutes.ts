@@ -8,4 +8,7 @@ import {
 const postsRouter = Router();
 //Atividade 3
 postsRouter.post('/', createPostController);
+
+//Atividade 5
+postsRouter.patch('/:id', patchPostController);
 export default postsRouter;

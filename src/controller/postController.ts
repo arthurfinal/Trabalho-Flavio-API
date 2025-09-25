@@ -15,3 +15,19 @@ export const createPostController = (req: Request, res: Response) => {
   const newPost = postBusiness.createPost(title, content, authorId);
   res.status(201).json({ success: true, message: 'Post criado com sucesso!', data: newPost });
 };
+
+//Atividade 5
+export const patchPostController = (req: Request, res: Response) => {
+  const postId = parseInt(req.params.id as string);
+  const updates = req.body;
+  const allowedUpdates = ['title', 'content', 'published'];
+  const isValidOperation = Object.keys(updates).every(update => allowedUpdates.includes(update));
+  if (isNaN(postId) || !isValidOperation) {
+    return res.status(400).json({ success: false, message: 'Atualização inválida. Campos permitidos: title, content, published.' });
+  }
+  const updatedPost = postBusiness.patchPost(postId, updates);
+  if (!updatedPost) {
+    return res.status(404).json({ success: false, message: 'Post não encontrado.' });
+  }
+  res.json({ success: true, message: 'Post atualizado com sucesso.', data: updatedPost });
+};
