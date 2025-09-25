@@ -48,3 +48,5 @@ export const updateUserController = (req: Request, res: Response) => {
     return res.status(500).json({ success: false, message: 'Erro interno do servidor.' });
   }
 };
+
+

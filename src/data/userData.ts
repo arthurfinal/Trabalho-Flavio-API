@@ -24,4 +24,3 @@ export const findUserByEmail = (email: string): User | undefined => {
   return users.find(user => user.email === email);
 };
 
-

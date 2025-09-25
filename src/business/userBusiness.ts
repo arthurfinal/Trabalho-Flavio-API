@@ -33,3 +33,4 @@ export const updateUser = (userId: number, updateData: Partial<User>): User | nu
   const updatedUser = { ...existingUser, ...updateData };
   return updateUserInDatabase(updatedUser as User);
 };
+

@@ -31,3 +31,18 @@ export const patchPostController = (req: Request, res: Response) => {
   }
   res.json({ success: true, message: 'Post atualizado com sucesso.', data: updatedPost });
 };
+
+//Atividade 6
+export const deletePostController = (req: Request, res: Response) => {
+  const postId = parseInt(req.params.id as string);
+  const userIdHeader = req.headers['user-id'];
+  const userId = typeof userIdHeader === 'string' ? parseInt(userIdHeader) : NaN;
+  if (isNaN(postId) || isNaN(userId)) {
+    return res.status(400).json({ success: false, message: 'ID do post ou do usuário inválido.' });
+  }
+  const post = postBusiness.deletePost(postId, userId);
+  if (!post) {
+    return res.status(404).json({ success: false, message: 'Você não tem permissão para remover este post ou o post não foi encontrado.' });
+  }
+  res.json({ success: true, message: 'Post removido com sucesso.' });
+};

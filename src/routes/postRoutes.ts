@@ -11,4 +11,7 @@ postsRouter.post('/', createPostController);
 
 //Atividade 5
 postsRouter.patch('/:id', patchPostController);
+
+//Atividades 6
+postsRouter.delete('/:id', deletePostController);
 export default postsRouter;
